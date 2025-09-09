@@ -165,7 +165,6 @@ class AbrigoAnimais {
 
   #validaEntradas(entradaAnimais, brinquedosUm, brinquedosDois) {
     //VALIDO OS NOMES DOS ANIMAIS
-
     if (new Set(entradaAnimais).size !== entradaAnimais.length) {
       return { erro: "Animal inválido" };
     }
@@ -176,7 +175,6 @@ class AbrigoAnimais {
     }
 
     // VALIDO OS BRINQUEDOS
-
     if (new Set(brinquedosUm).size !== brinquedosUm.length) {
       return { erro: "Brinquedo inválido" };
     }
