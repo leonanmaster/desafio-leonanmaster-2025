@@ -51,6 +51,7 @@ class AbrigoAnimais {
       const pessoaUmPode = this.#podeAdotar(brinquedosUm, animalInfo.brinquedos);
       const pessoaDoisPode = this.#podeAdotar(brinquedosDois, animalInfo.brinquedos);
       let destinoFinal = `${animal} - abrigo`;
+      
       if(pessoaUmPode && !pessoaDoisPode && qtdPessoaUm < 3){
         const temConflito = this.#conflitoGato(animalInfo, adotadosPelaPessoaUm);
         if(!temConflito){
@@ -141,45 +142,37 @@ class AbrigoAnimais {
   #validaEntradas(entradaAnimais, brinquedosUm, brinquedosDois){
 
     //VALIDO OS NOMES DOS ANIMAIS
-    let nomeInvalido = false;
+    
     if (new Set(entradaAnimais).size !== entradaAnimais.length){
-      nomeInvalido = true;
+      return { erro: 'Animal inválido' };
     }
-    if (!nomeInvalido){
-      for (const animal of entradaAnimais){
-        if (this.tabelaAnimais[animal] === undefined){
-          nomeInvalido = true;
-          break;
-        }
+    for (const animal of entradaAnimais){
+      if (this.tabelaAnimais[animal] === undefined){
+        return { erro: 'Animal inválido' };
+  
       }
     }
-    if (nomeInvalido){ return { erro: 'Animal inválido' }; }
 
     // VALIDO OS BRINQUEDOS 
-    let brinquedoInvalido = false;
+
     if (new Set(brinquedosUm).size !== brinquedosUm.length){
-      brinquedoInvalido = true;
+      return { erro: 'Brinquedo inválido' };
     }
     if (new Set(brinquedosDois).size !== brinquedosDois.length){
-      brinquedoInvalido = true;
+      return { erro: 'Brinquedo inválido' };
     }
-    if (!brinquedoInvalido){
-      for (const brinquedo of brinquedosUm) {
-        if (!this.brinquedosPossiveis.has(brinquedo)) { 
-          brinquedoInvalido = true;
-          break;
-        }
+    
+    for (const brinquedo of brinquedosUm) {
+      if (!this.brinquedosPossiveis.has(brinquedo)) { 
+        return { erro: 'Brinquedo inválido' };
       }
     }
-    if (!brinquedoInvalido) { 
-      for (const brinquedo of brinquedosDois) {
-        if (!this.brinquedosPossiveis.has(brinquedo)) { 
-          brinquedoInvalido = true;
-          break;
-        }
+  
+    for (const brinquedo of brinquedosDois) {
+      if (!this.brinquedosPossiveis.has(brinquedo)) { 
+        return { erro: 'Brinquedo inválido' };
       }
     }
-    if (brinquedoInvalido) { return { erro: 'Brinquedo inválido' }; }
 
     return null;
   }
